@@ -448,6 +448,96 @@ html, body {
   50% { opacity: 0; }
 }
 
+/* ========== OUR STORY SECTION ========== */
+.story-section {
+  width: 100%;
+  max-width: 700px;
+  padding: 2rem 1rem;
+}
+
+.story-card {
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: clamp(2rem, 5vw, 3rem);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.story-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+}
+
+.story-date {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  opacity: 0.6;
+  margin-bottom: 0.5rem;
+}
+
+.story-title {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: clamp(1.8rem, 5vw, 2.8rem);
+  margin-bottom: 1.5rem;
+  line-height: 1.3;
+}
+
+.story-photo {
+  width: 100%;
+  border-radius: 16px;
+  border: 3px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  margin-bottom: 2rem;
+  transition: transform 0.5s ease, box-shadow 0.5s ease;
+}
+
+.story-photo:hover {
+  transform: scale(1.02);
+  box-shadow: 0 15px 50px rgba(255, 107, 157, 0.3), 0 0 30px rgba(196, 77, 255, 0.2);
+}
+
+.story-text {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: clamp(1rem, 2.5vw, 1.25rem);
+  line-height: 2;
+  opacity: 0.9;
+  text-align: left;
+}
+
+.story-text p {
+  margin-bottom: 1.2rem;
+}
+
+.story-text .highlight {
+  color: #ff6b9d;
+  font-weight: 600;
+  font-style: normal;
+}
+
+.story-text .dramatic {
+  display: block;
+  text-align: center;
+  font-size: clamp(1.2rem, 3vw, 1.5rem);
+  font-weight: 700;
+  font-style: normal;
+  margin: 1.5rem 0;
+  text-shadow: 0 0 20px rgba(255, 107, 157, 0.4);
+}
+
 /* ========== AUDIO PLAYER ========== */
 .audio-section {
   display: flex;
