@@ -1,7 +1,7 @@
 /**
  * No-button dodge logic
- * Makes the "No" button impossible to click by dodging the cursor.
- * Adds screen shake effect on the areyousure page.
+ * Makes the "No" button dodge the cursor for 10 seconds,
+ * then stops dodging so she can click it and see the areyousure page.
  */
 
 (function () {
@@ -9,6 +9,9 @@
   if (!noBtn) return;
 
   var dodgeCount = 0;
+  var dodgingEnabled = true;
+  var isAreYouSurePage = document.body.classList.contains('bg-gradient-alt');
+
   var funnyTexts = [
     "No 😤",
     "Nope! 🏃",
@@ -26,8 +29,6 @@
     "YEET! 🏃‍♂️💨",
     "Just say YES! 💕"
   ];
-
-  var isAreYouSurePage = document.body.classList.contains('bg-gradient-alt');
 
   function getViewportBounds() {
     return {
@@ -56,6 +57,8 @@
   }
 
   function dodge() {
+    if (!dodgingEnabled) return;
+
     dodgeCount++;
     var pos = getRandomPosition();
 
@@ -70,12 +73,9 @@
       noBtn.textContent = funnyTexts[Math.floor(Math.random() * funnyTexts.length)];
     }
 
-    // Random size changes for fun
+    // Random size and rotation for fun
     var sizes = [1, 0.9, 1.1, 0.8, 1.2, 0.7, 0.6];
     var scale = dodgeCount < sizes.length ? sizes[dodgeCount] : Math.max(0.5, 1 - dodgeCount * 0.03);
-    noBtn.style.transform = 'scale(' + scale + ')';
-
-    // Random rotation for quirky feel
     var rotation = (Math.random() - 0.5) * 30;
     noBtn.style.transform = 'scale(' + scale + ') rotate(' + rotation + 'deg)';
 
@@ -90,19 +90,37 @@
     }
   }
 
+  // After 10 seconds, stop dodging and let her click NO
+  if (!isAreYouSurePage) {
+    setTimeout(function () {
+      dodgingEnabled = false;
+      noBtn.classList.remove('dodging');
+      noBtn.textContent = 'Fine, click No 😢';
+      noBtn.style.transform = 'scale(1) rotate(0deg)';
+      noBtn.style.transition = 'all 0.3s ease';
+
+      // Position it nicely below the card
+      var bounds = getViewportBounds();
+      noBtn.style.left = (bounds.width / 2 - 60) + 'px';
+      noBtn.style.top = (bounds.height * 0.85) + 'px';
+    }, 10000);
+  }
+
   // Desktop: dodge on hover
   noBtn.addEventListener('mouseenter', function (e) {
+    if (!dodgingEnabled) return;
     e.preventDefault();
     dodge();
   });
 
-  // Mobile: dodge on touchstart
+  // Mobile: dodge on touchstart (only when dodging is enabled)
   noBtn.addEventListener('touchstart', function (e) {
+    if (!dodgingEnabled) return;
     e.preventDefault();
     dodge();
   }, { passive: false });
 
-  // If somehow clicked, go to "are you sure" page
+  // Click -> go to "are you sure" page
   noBtn.addEventListener('click', function (e) {
     e.preventDefault();
     window.location.href = 'areyousure.html';

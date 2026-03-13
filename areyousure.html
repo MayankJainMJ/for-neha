@@ -53,6 +53,9 @@
         <button class="decoy-btn" onclick="window.location.href='celebration.html'">Okay fine, YES! 💕</button>
         <button class="decoy-btn" onclick="window.location.href='celebration.html'">I was just kidding! YES! 😂</button>
         <button class="decoy-btn" onclick="window.location.href='celebration.html'">OF COURSE YES! 🥰</button>
+        <button class="decoy-btn" onclick="window.location.href='celebration.html'">You know you want to say YES! 😏</button>
+        <button class="decoy-btn" onclick="window.location.href='celebration.html'">YES because he flew to Bangalore for you! ✈️</button>
+        <button class="decoy-btn" onclick="window.location.href='celebration.html'">YES because 8 years of waiting! 💕</button>
       </div>
     </div>
   </div>
@@ -81,21 +84,35 @@
           countdownEl.textContent = '💕';
           countdownLabel.textContent = '0 seconds';
 
-          // Time's up! Add more YES buttons
+          // Time's up! Add a flood of YES buttons
           var bonusTexts = [
             "TIME'S UP! Say YES! 🎉",
             "Too late to say No! 😂",
             "YES is the only answer! 💕",
-            "Your heart says YES! 🥰"
+            "Your heart says YES! 🥰",
+            "He made a whole website for you! YES! 🫠",
+            "He waited 8 YEARS! YES! ⏳",
+            "Remember CP? That kiss? YES! 💋",
+            "Japan trip is waiting! YES! 🇯🇵",
+            "He flew to Bangalore just to see you! YES! ✈️",
+            "Your future wifey title is waiting! YES! 💍",
+            "Even this button knows you want to say YES! 😂",
+            "Last chance... YES! 🥺💕"
           ];
-          bonusTexts.forEach(function (text) {
-            var btn = document.createElement('button');
-            btn.className = 'decoy-btn';
-            btn.textContent = text;
-            btn.style.animation = 'bounceIn 0.5s ease-out';
-            btn.onclick = function () { window.location.href = 'celebration.html'; };
-            decoyArea.appendChild(btn);
+          bonusTexts.forEach(function (text, i) {
+            setTimeout(function () {
+              var btn = document.createElement('button');
+              btn.className = 'decoy-btn';
+              btn.textContent = text;
+              btn.style.animation = 'bounceIn 0.5s ease-out';
+              btn.onclick = function () { window.location.href = 'celebration.html'; };
+              decoyArea.appendChild(btn);
+            }, i * 200);
           });
+
+          // Hide the NO button
+          var noBtn = document.getElementById('no-btn');
+          if (noBtn) noBtn.style.display = 'none';
 
           // Update countdown text
           document.querySelector('.countdown-text').textContent = "Time's up! There's only one answer now! 💕";
