@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>She said YES! 🎉💕</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .celebrate-entrance {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      animation: flashFade 1.5s ease forwards;
+    }
+    @keyframes flashFade {
+      0% { opacity: 1; background: #fff; }
+      30% { opacity: 1; background: #ff6b9d; }
+      100% { opacity: 0; visibility: hidden; pointer-events: none; }
+    }
+    .big-heart-burst {
+      font-size: 8rem;
+      animation: heartBurst 1s ease-out forwards;
+    }
+    @keyframes heartBurst {
+      0% { transform: scale(0.3); opacity: 0; }
+      50% { transform: scale(1.5); opacity: 1; }
+      100% { transform: scale(20); opacity: 0; }
+    }
+  </style>
+</head>
+<body class="bg-celebration">
+
+  <!-- Flash entrance -->
+  <div class="celebrate-entrance">
+    <div class="big-heart-burst">💖</div>
+  </div>
+
+  <!-- Confetti canvas -->
+  <canvas id="confetti-canvas"></canvas>
+
+  <!-- Floating hearts background -->
+  <div class="hearts-bg">
+    <div class="heart">💖</div>
+    <div class="heart">🎉</div>
+    <div class="heart">💕</div>
+    <div class="heart">🥰</div>
+    <div class="heart">💗</div>
+    <div class="heart">✨</div>
+    <div class="heart">💕</div>
+    <div class="heart">🎊</div>
+    <div class="heart">💖</div>
+    <div class="heart">🥰</div>
+  </div>
+
+  <!-- Celebration content -->
+  <div class="celebration-content">
+
+    <!-- Main heading -->
+    <h1 class="celebration-heading">She said YES!</h1>
+    <p class="subheading" style="font-size: clamp(1.2rem, 3vw, 1.8rem);">
+      I knew you would 🥰
+    </p>
+
+    <!-- Audio section — near the top -->
+    <div class="audio-section reveal">
+      <p class="audio-section-label">One more thing for you... press play 🎵</p>
+      <div class="audio-player">
+        <button class="audio-btn" id="audio-btn">▶</button>
+        <div class="audio-wave paused" id="audio-wave">
+          <div class="bar"></div>
+          <div class="bar"></div>
+          <div class="bar"></div>
+          <div class="bar"></div>
+          <div class="bar"></div>
+          <div class="bar"></div>
+          <div class="bar"></div>
+          <div class="bar"></div>
+        </div>
+        <span class="audio-label">Press play before you scroll 🎵</span>
+      </div>
+    </div>
+
+    <!-- Hidden audio element — add your second audio file here -->
+    <audio id="bg-audio" preload="auto">
+      <!-- Replace with your audio-file-2 when ready -->
+      <source src="audio/audio-file-2.opus" type="audio/ogg; codecs=opus">
+      <source src="audio/audio-file-2.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Photo slideshow -->
+    <div class="slideshow-container reveal">
+      <div class="slide active">
+        <img src="images/photo1.jpg" alt="Neha" style="width:100%; height:100%; object-fit:cover; border-radius:inherit;">
+      </div>
+      <div class="slide">
+        <img src="images/photo2.jpg" alt="Mountain view" style="width:100%; height:100%; object-fit:cover; border-radius:inherit;">
+      </div>
+      <div class="slide">
+        <img src="images/photo3.jpg" alt="Christmas tree" style="width:100%; height:100%; object-fit:cover; border-radius:inherit;">
+      </div>
+      <div class="slide">
+        <img src="images/photo4.jpg" alt="Snow day" style="width:100%; height:100%; object-fit:cover; border-radius:inherit;">
+      </div>
+      <div class="slide">
+        <img src="images/photo5.jpg" alt="Beautiful you" style="width:100%; height:100%; object-fit:cover; border-radius:inherit;">
+      </div>
+      <div class="slide">
+        <img src="images/photo6.jpg" alt="Coffee time" style="width:100%; height:100%; object-fit:cover; border-radius:inherit;">
+      </div>
+    </div>
+
+    <!-- Slideshow dots -->
+    <div class="slideshow-dots">
+      <div class="dot active" data-slide="0"></div>
+      <div class="dot" data-slide="1"></div>
+      <div class="dot" data-slide="2"></div>
+      <div class="dot" data-slide="3"></div>
+      <div class="dot" data-slide="4"></div>
+      <div class="dot" data-slide="5"></div>
+    </div>
+
+    <!-- Love message with typewriter -->
+    <div class="glass-card reveal" style="margin-top: 1rem;">
+      <div class="love-message" id="love-message"
+           data-message="Neha, from the very first moment I met you, I knew you were special. Every day with you feels like a beautiful adventure. Your smile lights up my entire world, and your laugh is my favorite sound. I can't imagine my life without you in it. So here I am, asking you to be mine... forever. I love you, Neha. 💕">
+      </div>
+    </div>
+
+    <!-- Photo Gallery — all extracted photos -->
+    <div class="gallery-section reveal">
+      <h2 class="gallery-title">Every moment with you is special 💕</h2>
+      <div class="photo-gallery">
+        <div class="gallery-item"><img src="images/photos_extracted/IMG-20260305-WA0022.jpg" alt="Neha"></div>
+        <div class="gallery-item"><img src="images/photos_extracted/IMG-20260305-WA0004.jpg" alt="Neha"></div>
+        <div class="gallery-item"><img src="images/photos_extracted/IMG-20260223-WA0002.jpg" alt="Neha"></div>
+        <div class="gallery-item"><img src="images/photos_extracted/IMG-20260216-WA0000.jpg" alt="Neha"></div>
+        <div class="gallery-item"><img src="images/photos_extracted/IMG-20260214-WA0044.jpg" alt="Neha"></div>
+        <div class="gallery-item"><img src="images/photos_extracted/IMG-20260212-WA0018.jpg" alt="Neha"></div>
+        <div class="gallery-item"><img src="images/photos_extracted/IMG-20260212-WA0000.jpg" alt="Neha"></div>
+        <div class="gallery-item"><img src="images/photos_extracted/IMG-20260209-WA0000.jpg" alt="Neha"></div>
+        <div class="gallery-item"><img src="images/photos_extracted/IMG-20260206-WA0001.jpg" alt="Neha"></div>
+        <div class="gallery-item"><img src="images/photos_extracted/IMG-20251230-WA0012.jpg" alt="Neha"></div>
+        <div class="gallery-item"><img src="images/photos_extracted/IMG-20251230-WA0010.jpg" alt="Neha"></div>
+        <div class="gallery-item"><img src="images/photos_extracted/IMG-20251228-WA0015.jpg" alt="Neha"></div>
+        <div class="gallery-item"><img src="images/photos_extracted/IMG-20251228-WA0013.jpg" alt="Neha"></div>
+        <div class="gallery-item"><img src="images/photos_extracted/IMG-20251228-WA0012.jpg" alt="Neha"></div>
+        <div class="gallery-item"><img src="images/photos_extracted/IMG-20251227-WA0024.jpg" alt="Neha"></div>
+        <div class="gallery-item"><img src="images/photos_extracted/IMG-20251224-WA0019.jpg" alt="Neha"></div>
+        <div class="gallery-item"><img src="images/photos_extracted/IMG-20251222-WA0000.jpg" alt="Neha"></div>
+        <div class="gallery-item"><img src="images/photos_extracted/IMG-20251214-WA0003.jpg" alt="Neha"></div>
+        <div class="gallery-item"><img src="images/photos_extracted/IMG-20251214-WA0001.jpg" alt="Neha"></div>
+        <div class="gallery-item"><img src="images/photos_extracted/IMG-20251212-WA0014.jpg" alt="Neha"></div>
+        <div class="gallery-item"><img src="images/photos_extracted/IMG-20251206-WA0033.jpg" alt="Neha"></div>
+        <div class="gallery-item"><img src="images/photos_extracted/IMG-20251206-WA0032.jpg" alt="Neha"></div>
+        <div class="gallery-item"><img src="images/photos_extracted/IMG-20251206-WA0031.jpg" alt="Neha"></div>
+        <div class="gallery-item"><img src="images/photos_extracted/IMG-20251206-WA0012.jpg" alt="Neha"></div>
+      </div>
+    </div>
+
+    <!-- Song section -->
+    <div class="song-section reveal">
+      <div class="glass-card">
+        <p class="song-label">This song says everything I feel for you 💕</p>
+        <iframe class="youtube-embed" src="https://www.youtube.com/embed/9T-Zbxg9X_4" title="Tum Se Hi" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+    </div>
+
+    <!-- Final dramatic message -->
+    <div class="final-section reveal">
+      <p class="final-wifey">My wifey 💕</p>
+      <p class="final-forever">Forever & always</p>
+      <p class="final-credit">— Made with all my love, for you, Neha —</p>
+    </div>
+
+  </div>
+
+  <script src="js/confetti.js"></script>
+  <script src="js/celebration.js"></script>
+  <script src="js/gallery.js"></script>
+</body>
+</html>

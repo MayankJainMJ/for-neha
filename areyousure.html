@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wait... really? 🥺</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .tiny-no {
+      padding: 10px 24px !important;
+      font-size: 0.8rem !important;
+      opacity: 0.8;
+    }
+  </style>
+</head>
+<body class="bg-gradient-alt">
+
+  <!-- Floating hearts background -->
+  <div class="hearts-bg">
+    <div class="heart">💔</div>
+    <div class="heart">🥺</div>
+    <div class="heart">💗</div>
+    <div class="heart">😢</div>
+    <div class="heart">💕</div>
+    <div class="heart">🥺</div>
+    <div class="heart">💔</div>
+    <div class="heart">💗</div>
+    <div class="heart">😢</div>
+    <div class="heart">💕</div>
+  </div>
+
+  <!-- Main content -->
+  <div class="page-container page-enter">
+    <div class="glass-card">
+      <div class="sad-emoji">🥺</div>
+      <h1 class="heading-romantic" style="font-size: clamp(1.8rem, 5vw, 3rem); margin-top: 1rem;">
+        Wait... really?
+      </h1>
+      <p class="subheading">Are you sure, Neha? Look at this face 🥺</p>
+
+      <!-- Countdown timer -->
+      <div class="countdown-container" id="countdown-container">
+        <p class="countdown-text">You have <span id="countdown-label">10 seconds</span> to change your mind!</p>
+        <div class="countdown-number" id="countdown-number">10</div>
+      </div>
+
+      <p class="body-text" id="plea-text">
+        Maybe you accidentally clicked that button... right? RIGHT?! 😭
+      </p>
+
+      <!-- Decoy button area -->
+      <div class="decoy-container" id="decoy-area">
+        <button class="decoy-btn" onclick="window.location.href='celebration.html'">Okay fine, YES! 💕</button>
+        <button class="decoy-btn" onclick="window.location.href='celebration.html'">I was just kidding! YES! 😂</button>
+        <button class="decoy-btn" onclick="window.location.href='celebration.html'">OF COURSE YES! 🥰</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tiny, super evasive No button -->
+  <button class="btn btn-no tiny-no" id="no-btn">no...</button>
+
+  <script src="js/dodge.js"></script>
+  <script>
+    // Countdown timer
+    (function () {
+      var countdownEl = document.getElementById('countdown-number');
+      var countdownLabel = document.getElementById('countdown-label');
+      var decoyArea = document.getElementById('decoy-area');
+      var timeLeft = 10;
+
+      var timer = setInterval(function () {
+        timeLeft--;
+        if (timeLeft >= 0) {
+          countdownEl.textContent = timeLeft;
+          countdownLabel.textContent = timeLeft + ' second' + (timeLeft !== 1 ? 's' : '');
+        }
+
+        if (timeLeft <= 0) {
+          clearInterval(timer);
+          countdownEl.textContent = '💕';
+          countdownLabel.textContent = '0 seconds';
+
+          // Time's up! Add more YES buttons
+          var bonusTexts = [
+            "TIME'S UP! Say YES! 🎉",
+            "Too late to say No! 😂",
+            "YES is the only answer! 💕",
+            "Your heart says YES! 🥰"
+          ];
+          bonusTexts.forEach(function (text) {
+            var btn = document.createElement('button');
+            btn.className = 'decoy-btn';
+            btn.textContent = text;
+            btn.style.animation = 'bounceIn 0.5s ease-out';
+            btn.onclick = function () { window.location.href = 'celebration.html'; };
+            decoyArea.appendChild(btn);
+          });
+
+          // Update countdown text
+          document.querySelector('.countdown-text').textContent = "Time's up! There's only one answer now! 💕";
+        }
+      }, 1000);
+    })();
+
+    // Even more aggressive dodging for this page
+    var noBtn = document.getElementById('no-btn');
+    var pleaText = document.getElementById('plea-text');
+    var decoyArea = document.getElementById('decoy-area');
+    var extraDodges = 0;
+
+    var pleaTexts = [
+      "Maybe you accidentally clicked that button... right? RIGHT?! 😭",
+      "Okay that's TWO times now... are you just testing the button? 🤔",
+      "NEHA PLEASE 😭😭😭 Just click one of the green buttons!",
+      "I literally made this entire website for you... 🥺💕",
+      "The No button is getting smaller... just like my hopes 😂😭",
+      "Fine, I'll add MORE Yes buttons! You can't escape love! 💕"
+    ];
+
+    // Override dodge behavior for harder mode
+    noBtn.addEventListener('mouseenter', function () {
+      extraDodges++;
+
+      // Update plea text
+      if (extraDodges < pleaTexts.length) {
+        pleaText.textContent = pleaTexts[extraDodges];
+      }
+
+      // Shrink even more
+      var size = Math.max(4, 14 - extraDodges * 2);
+      noBtn.style.fontSize = size + 'px';
+      noBtn.style.padding = Math.max(2, 6 - extraDodges) + 'px ' + Math.max(4, 14 - extraDodges * 2) + 'px';
+      noBtn.style.opacity = Math.max(0.1, 0.4 - extraDodges * 0.05);
+
+      // Grow existing YES buttons
+      var decoyBtns = decoyArea.querySelectorAll('.decoy-btn');
+      var growScale = 1 + extraDodges * 0.06;
+      decoyBtns.forEach(function (btn) {
+        btn.style.transform = 'scale(' + Math.min(growScale, 1.5) + ')';
+      });
+
+      // Add more Yes decoy buttons
+      if (extraDodges % 2 === 0) {
+        var newBtn = document.createElement('button');
+        newBtn.className = 'decoy-btn';
+        var texts = ["YES YES YES! 💕", "Definitely YES! 🥰", "Say YES already! 😂", "100% YES! 💖", "YESSS! 🎉"];
+        newBtn.textContent = texts[Math.floor(Math.random() * texts.length)];
+        newBtn.onclick = function () { window.location.href = 'celebration.html'; };
+        decoyArea.appendChild(newBtn);
+      }
+
+      // After many dodges, the No button disappears entirely
+      if (extraDodges >= 10) {
+        noBtn.style.display = 'none';
+        pleaText.textContent = "The 'No' button has left the chat. There's only one option now! 😂💕";
+      }
+    });
+
+    // If somehow clicked again, just reload with funnier text
+    noBtn.addEventListener('click', function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      window.location.reload();
+    });
+  </script>
+</body>
+</html>

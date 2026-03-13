@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Will you...? 💕</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* Chase commentary that pops up during dodging */
+    .chase-bubble {
+      position: fixed;
+      background: rgba(255, 255, 255, 0.95);
+      color: #333;
+      font-family: 'Montserrat', sans-serif;
+      font-size: clamp(0.85rem, 2.5vw, 1.1rem);
+      font-weight: 600;
+      padding: 10px 20px;
+      border-radius: 20px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+      pointer-events: none;
+      z-index: 200;
+      animation: bubblePop 2.5s ease-out forwards;
+      white-space: nowrap;
+    }
+
+    @keyframes bubblePop {
+      0% { transform: scale(0) translateY(0); opacity: 0; }
+      15% { transform: scale(1.1) translateY(0); opacity: 1; }
+      25% { transform: scale(1) translateY(0); opacity: 1; }
+      80% { opacity: 1; }
+      100% { transform: scale(0.8) translateY(-30px); opacity: 0; }
+    }
+
+    .chase-counter {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: 'Playfair Display', serif; font-style: italic;
+      font-size: clamp(1rem, 3vw, 1.4rem);
+      font-weight: 700;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      z-index: 150;
+      text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.3);
+      text-align: center;
+      pointer-events: none;
+    }
+
+    .chase-counter.show {
+      opacity: 1;
+    }
+  </style>
+</head>
+<body class="bg-gradient">
+
+  <!-- Star particle canvas -->
+  <canvas id="particle-canvas"></canvas>
+
+  <!-- Floating hearts background -->
+  <div class="hearts-bg">
+    <div class="heart">💗</div>
+    <div class="heart">💕</div>
+    <div class="heart">❤️</div>
+    <div class="heart">💖</div>
+    <div class="heart">💓</div>
+    <div class="heart">💗</div>
+    <div class="heart">💕</div>
+    <div class="heart">❤️</div>
+    <div class="heart">💖</div>
+    <div class="heart">💓</div>
+  </div>
+
+  <!-- Main content -->
+  <div class="page-container page-enter">
+    <div class="glass-card">
+      <h1 class="heading-romantic">Hey Neha...</h1>
+      <p class="subheading">I have something to ask you</p>
+
+      <!-- Photo -->
+      <div class="photo-frame">
+        <img src="images/hero.jpg" alt="Neha" style="width:100%; height:100%; object-fit:cover; border-radius:inherit;">
+      </div>
+
+      <p class="subheading" style="margin-top: 1rem; font-size: clamp(1.3rem, 3.5vw, 2.2rem);">
+        Will you be my wifey? 💕
+      </p>
+
+      <div class="btn-container">
+        <button class="btn btn-yes" id="yes-btn" onclick="window.location.href='celebration.html'">
+          Yes! 💕
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- No button (positioned by JS) -->
+  <button class="btn btn-no" id="no-btn">No 😤</button>
+
+  <!-- Chase dodge counter -->
+  <div class="chase-counter" id="chase-counter"></div>
+
+  <script src="js/particles.js"></script>
+  <script src="js/dodge.js"></script>
+  <script>
+    // Chase commentary bubbles
+    (function () {
+      var noBtn = document.getElementById('no-btn');
+      var chaseCounter = document.getElementById('chase-counter');
+      if (!noBtn) return;
+
+      var chaseBubbles = [
+        "Haha you thought! 😂",
+        "Too slow, Neha! 🏃‍♂️💨",
+        "The button said NOPE! 😜",
+        "It's running away from you! 🤣",
+        "Why are you even trying?! 😭💕",
+        "That button has trust issues now! 😂",
+        "It's scared of you! 🫣",
+        "You're making it nervous! 😅",
+        "Just give up and say YES! 💕",
+        "This button is faster than you! ⚡",
+        "Oops! Missed again! 🤪",
+        "Maybe try the green one instead? 😏",
+        "This button has Olympic training! 🏅",
+        "It literally doesn't want you to click it! 🙅",
+        "Okay this is getting embarrassing... for you 😂"
+      ];
+
+      var chaseCount = 0;
+
+      noBtn.addEventListener('mouseenter', showChaseBubble);
+      noBtn.addEventListener('touchstart', showChaseBubble);
+
+      function showChaseBubble() {
+        chaseCount++;
+
+        // Show a random bubble near the NO button
+        if (chaseCount <= chaseBubbles.length) {
+          var bubble = document.createElement('div');
+          bubble.className = 'chase-bubble';
+          bubble.textContent = chaseBubbles[chaseCount - 1];
+
+          // Position near where the button was
+          var btnRect = noBtn.getBoundingClientRect();
+          bubble.style.left = Math.min(btnRect.left, window.innerWidth - 250) + 'px';
+          bubble.style.top = Math.max(10, btnRect.top - 50) + 'px';
+
+          document.body.appendChild(bubble);
+          setTimeout(function () { bubble.remove(); }, 2500);
+        }
+
+        // Update chase counter
+        chaseCounter.classList.add('show');
+        if (chaseCount < 5) {
+          chaseCounter.textContent = 'Attempts to say No: ' + chaseCount + ' 😤';
+        } else if (chaseCount < 10) {
+          chaseCounter.textContent = 'Girl, ' + chaseCount + ' attempts?! Just say YES! 😂💕';
+        } else {
+          chaseCounter.textContent = chaseCount + ' attempts 💀 The No button is TIRED! 🏃‍♂️💨';
+        }
+
+        // Screen shake after 5 attempts
+        if (chaseCount >= 5) {
+          document.body.classList.add('shake');
+          setTimeout(function () { document.body.classList.remove('shake'); }, 500);
+        }
+
+        // Grow the YES button with each attempt
+        var yesBtn = document.getElementById('yes-btn');
+        if (yesBtn) {
+          var scale = 1 + chaseCount * 0.04;
+          yesBtn.style.transform = 'scale(' + Math.min(scale, 1.5) + ')';
+        }
+      }
+    })();
+
+    // Sparkle particles on YES button hover
+    (function () {
+      var yesBtn = document.getElementById('yes-btn');
+      if (!yesBtn) return;
+
+      yesBtn.addEventListener('mouseenter', function () {
+        for (var i = 0; i < 12; i++) {
+          var spark = document.createElement('span');
+          spark.className = 'btn-yes-sparkle';
+          var angle = (Math.PI * 2 / 12) * i;
+          var dist = 30 + Math.random() * 30;
+          spark.style.setProperty('--tx', Math.cos(angle) * dist + 'px');
+          spark.style.setProperty('--ty', Math.sin(angle) * dist + 'px');
+          spark.style.left = '50%';
+          spark.style.top = '50%';
+          spark.style.background = ['#fff', '#ffd32a', '#55efc4', '#ff6b9d'][Math.floor(Math.random() * 4)];
+          yesBtn.appendChild(spark);
+          setTimeout(function () { spark.remove(); }, 800);
+        }
+      });
+    })();
+  </script>
+</body>
+</html>

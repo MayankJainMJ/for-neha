@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hey Neha... 💕</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .dare-page {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 2rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .dare-card {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-radius: 24px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      padding: clamp(2rem, 5vw, 3rem);
+      text-align: center;
+      max-width: 500px;
+      width: 90%;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+      animation: fadeInUp 0.8s ease-out;
+    }
+
+    .dare-emoji {
+      font-size: clamp(3rem, 8vw, 5rem);
+      margin-bottom: 1rem;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .dare-title {
+      font-family: 'Playfair Display', serif; font-weight: 700;
+      font-size: clamp(1.8rem, 5vw, 3rem);
+      text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+      margin-bottom: 0.5rem;
+    }
+
+    .dare-subtitle {
+      font-family: 'Playfair Display', serif; font-style: italic;
+      font-size: clamp(1.2rem, 3.5vw, 1.8rem);
+      font-weight: 700;
+      opacity: 0.9;
+      margin-bottom: 2rem;
+      text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.2);
+    }
+
+    .dare-audio-section {
+      margin: 1.5rem 0;
+    }
+
+    .dare-label {
+      font-family: 'Playfair Display', serif; font-style: italic;
+      font-size: clamp(1rem, 2.5vw, 1.3rem);
+      font-weight: 700;
+      margin-bottom: 1rem;
+      opacity: 0.85;
+    }
+
+    .continue-btn {
+      margin-top: 2rem;
+      padding: 16px 50px;
+      font-size: clamp(1rem, 3vw, 1.3rem);
+      background: linear-gradient(135deg, #ff6b9d, #c44dff);
+      color: #fff;
+      border: none;
+      border-radius: 50px;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 25px rgba(255, 107, 157, 0.4), 0 0 40px rgba(196, 77, 255, 0.2);
+      opacity: 0;
+      transform: translateY(10px);
+      pointer-events: none;
+      transition: opacity 0.6s ease, transform 0.6s ease, box-shadow 0.3s ease;
+    }
+
+    .continue-btn.show {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+      animation: pulseGlow 2s ease-in-out infinite;
+    }
+
+    .continue-btn:hover {
+      transform: scale(1.08);
+      box-shadow: 0 8px 35px rgba(255, 107, 157, 0.6), 0 0 60px rgba(196, 77, 255, 0.4);
+    }
+
+    .listen-hint {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.85rem;
+      opacity: 0;
+      margin-top: 1rem;
+      transition: opacity 0.5s ease;
+      font-weight: 300;
+    }
+
+    .listen-hint.show {
+      opacity: 0.6;
+    }
+  </style>
+</head>
+<body class="bg-gradient">
+
+  <!-- Cinematic entrance overlay -->
+  <div class="cinematic-overlay" id="cinematic">
+    <div class="cinematic-text" id="cin-text-1">Hey Neha...</div>
+    <div class="cinematic-text" id="cin-text-2" style="margin-top: 1rem;">I have something for you...</div>
+  </div>
+
+  <!-- Star particle canvas -->
+  <canvas id="particle-canvas"></canvas>
+
+  <!-- Floating hearts background -->
+  <div class="hearts-bg">
+    <div class="heart">💗</div>
+    <div class="heart">💕</div>
+    <div class="heart">❤️</div>
+    <div class="heart">💖</div>
+    <div class="heart">💓</div>
+    <div class="heart">💗</div>
+    <div class="heart">💕</div>
+    <div class="heart">❤️</div>
+    <div class="heart">💖</div>
+    <div class="heart">💓</div>
+  </div>
+
+  <!-- Main content -->
+  <div class="dare-page">
+    <div class="dare-card">
+      <div class="dare-emoji">😏</div>
+      <h1 class="dare-title">Hey Neha...</h1>
+      <p class="dare-subtitle">Before we begin, listen to this first</p>
+
+      <div class="dare-audio-section">
+        <p class="dare-label">I dare you to say No after hearing this 😏🎵</p>
+        <div class="audio-player">
+          <button class="audio-btn" id="audio-btn">▶</button>
+          <div class="audio-wave paused" id="audio-wave">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+          </div>
+          <span class="audio-label">Press play 🎵</span>
+        </div>
+      </div>
+
+      <p class="listen-hint" id="listen-hint">Listen first... then continue 💕</p>
+
+      <button class="continue-btn" id="continue-btn" onclick="window.location.href='proposal.html'">
+        Continue 💕
+      </button>
+    </div>
+  </div>
+
+  <!-- Hidden audio element -->
+  <audio id="bg-audio" preload="auto">
+    <source src="audio/WhatsApp Audio 2026-03-13 at 14.14.37.opus" type="audio/ogg; codecs=opus">
+  </audio>
+
+  <script src="js/particles.js"></script>
+  <script>
+    // Cinematic entrance sequence
+    (function () {
+      var cin = document.getElementById('cinematic');
+      var text1 = document.getElementById('cin-text-1');
+      var text2 = document.getElementById('cin-text-2');
+
+      setTimeout(function () { text1.classList.add('visible'); }, 500);
+      setTimeout(function () { text2.classList.add('visible'); }, 2500);
+      setTimeout(function () {
+        text1.classList.add('fade-out');
+        text2.classList.add('fade-out');
+      }, 4500);
+      setTimeout(function () { cin.classList.add('hidden'); }, 5200);
+    })();
+
+    // Audio player logic
+    (function () {
+      var audioBtn = document.getElementById('audio-btn');
+      var audioWave = document.getElementById('audio-wave');
+      var audioElement = document.getElementById('bg-audio');
+      var continueBtn = document.getElementById('continue-btn');
+      var listenHint = document.getElementById('listen-hint');
+      var isPlaying = false;
+      var hasPlayed = false;
+
+      if (!audioBtn || !audioElement) return;
+
+      audioBtn.addEventListener('click', function () {
+        if (isPlaying) {
+          audioElement.pause();
+          audioBtn.textContent = '▶';
+          audioWave.classList.add('paused');
+        } else {
+          audioElement.play().catch(function () {});
+          audioBtn.textContent = '⏸';
+          audioWave.classList.remove('paused');
+
+          if (!hasPlayed) {
+            hasPlayed = true;
+            // Show the continue button after a short listen
+            setTimeout(function () {
+              continueBtn.classList.add('show');
+              listenHint.classList.add('show');
+            }, 3000);
+          }
+        }
+        isPlaying = !isPlaying;
+      });
+
+      audioElement.addEventListener('ended', function () {
+        isPlaying = false;
+        audioBtn.textContent = '▶';
+        audioWave.classList.add('paused');
+        // Definitely show continue button when audio ends
+        continueBtn.classList.add('show');
+        listenHint.classList.add('show');
+      });
+    })();
+  </script>
+</body>
+</html>
