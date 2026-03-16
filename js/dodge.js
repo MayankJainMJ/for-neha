@@ -94,6 +94,7 @@
   if (!isAreYouSurePage) {
     setTimeout(function () {
       dodgingEnabled = false;
+
       noBtn.classList.remove('dodging');
       noBtn.textContent = 'Fine, click No 😢';
       noBtn.style.transform = 'scale(1) rotate(0deg)';
@@ -103,7 +104,7 @@
       var bounds = getViewportBounds();
       noBtn.style.left = (bounds.width / 2 - 60) + 'px';
       noBtn.style.top = (bounds.height * 0.85) + 'px';
-    }, 10000);
+    }, 3000);
   }
 
   // Desktop: dodge on hover
