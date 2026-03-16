@@ -180,7 +180,6 @@
     <source src="audio/message.opus" type="audio/ogg; codecs=opus">
   </audio>
 
-  <script src="js/bgmusic.js"></script>
   <script src="js/particles.js"></script>
   <script>
     // Cinematic entrance sequence
@@ -210,6 +209,24 @@
 
       if (!audioBtn || !audioElement) return;
 
+      // Auto-play on page load
+      function startPlaying() {
+        audioElement.play().then(function () {
+          isPlaying = true;
+          hasPlayed = true;
+          audioBtn.textContent = '⏸';
+          audioWave.classList.remove('paused');
+          setTimeout(function () {
+            continueBtn.classList.add('show');
+            listenHint.classList.add('show');
+          }, 3000);
+        }).catch(function () {
+          // Browser blocked autoplay — will play on first click
+        });
+      }
+
+      startPlaying();
+
       audioBtn.addEventListener('click', function () {
         if (isPlaying) {
           audioElement.pause();
@@ -222,7 +239,6 @@
 
           if (!hasPlayed) {
             hasPlayed = true;
-            // Show the continue button after a short listen
             setTimeout(function () {
               continueBtn.classList.add('show');
               listenHint.classList.add('show');

@@ -160,12 +160,11 @@ proposal/
 - [x] Custom caricatures (globe + onsen)
 - [x] YouTube song embed (Dooron Dooron)
 - [x] Audio players for voice messages
-- [x] Floating background music button (all pages)
+- [x] Auto-play audio on page load (index + celebration)
 - [x] "My wifey" glowing finale
 - [x] "Forever & always" shimmer text
 - [x] Mobile responsive
 - [x] Deployed on GitHub Pages
 
 ## Pending
-- [ ] Background music file (Tum Hi Ho instrumental) — needs `audio/bgmusic.mp3`
-- [ ] Audio-file-2 for celebration page (currently using celebration.opus)
+- Nothing — all features implemented!
