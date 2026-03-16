@@ -77,14 +77,21 @@
   var isPlaying = false;
 
   if (audioBtn && audioElement) {
-    // Auto-play on page load
-    audioElement.play().then(function () {
-      isPlaying = true;
-      audioBtn.textContent = '⏸';
-      audioWave.classList.remove('paused');
-    }).catch(function () {
-      // Browser blocked autoplay — manual click still works
-    });
+    // Auto-play: try immediately, fallback to first touch/click anywhere
+    function tryAutoPlay() {
+      if (isPlaying) return;
+      audioElement.play().then(function () {
+        isPlaying = true;
+        audioBtn.textContent = '⏸';
+        audioWave.classList.remove('paused');
+        document.removeEventListener('click', tryAutoPlay, true);
+        document.removeEventListener('touchstart', tryAutoPlay, true);
+      }).catch(function () {});
+    }
+
+    tryAutoPlay();
+    document.addEventListener('click', tryAutoPlay, true);
+    document.addEventListener('touchstart', tryAutoPlay, true);
 
     audioBtn.addEventListener('click', function (e) {
       e.stopPropagation();

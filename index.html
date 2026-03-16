@@ -209,8 +209,9 @@
 
       if (!audioBtn || !audioElement) return;
 
-      // Auto-play on page load
+      // Auto-play: try immediately, fallback to first touch/click anywhere
       function startPlaying() {
+        if (hasPlayed) return;
         audioElement.play().then(function () {
           isPlaying = true;
           hasPlayed = true;
@@ -220,12 +221,14 @@
             continueBtn.classList.add('show');
             listenHint.classList.add('show');
           }, 3000);
-        }).catch(function () {
-          // Browser blocked autoplay — will play on first click
-        });
+          document.removeEventListener('click', startPlaying, true);
+          document.removeEventListener('touchstart', startPlaying, true);
+        }).catch(function () {});
       }
 
       startPlaying();
+      document.addEventListener('click', startPlaying, true);
+      document.addEventListener('touchstart', startPlaying, true);
 
       audioBtn.addEventListener('click', function () {
         if (isPlaying) {
